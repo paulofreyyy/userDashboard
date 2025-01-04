@@ -1,4 +1,4 @@
-import { Alert, Container, Grid, Skeleton } from "@mui/material";
+import { Alert, Container, Skeleton, Box } from "@mui/material";
 import { HiChatBubbleBottomCenterText, HiMiniBookOpen, HiMiniUsers } from "react-icons/hi2";
 import { useStats } from "../hooks/useStats";
 import { StatsCard } from "../components/statsCards";
@@ -11,72 +11,67 @@ export const Home = () => {
 
     if (loading) {
         return (
-            <Grid container spacing={15} py={4} px={8}>
-                <Grid item md={4}>
-                    <Skeleton variant="rectangular" width="100%" height={150} />
-                </Grid>
-                <Grid item md={4}>
-                    <Skeleton variant="rectangular" width="100%" height={150} />
-                </Grid>
-                <Grid item md={4}>
-                    <Skeleton variant="rectangular" width="100%" height={150} />
-                </Grid>
-            </Grid>
+            <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={3} py={4} px={2}>
+                {[...Array(3)].map((_, index) => (
+                    <Skeleton key={index} variant="rectangular" width="100%" height={150} />
+                ))}
+            </Box>
         );
     }
 
     if (error) {
         return (
-            <Grid container spacing={15} py={4} px={8}>
-                <Grid item md={12}>
-                    <Alert severity="error">Erro: {error}</Alert>
-                </Grid>
-            </Grid>
+            <Box py={4} px={2}>
+                <Alert severity="error">Erro: {error}</Alert>
+            </Box>
         );
     }
 
     return (
         <Container>
-            <Grid container spacing={5} py={4} px={8}>
-                <Grid item md={4}>
-                    <StatsCard
-                        title="Total de usuários"
-                        value={stats?.totalUsers}
-                        icon={<HiMiniUsers />}
-                        iconColor="#6E00FF"
-                    />
-                </Grid>
+            <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={5} py={4} px={2}>
+                <StatsCard
+                    title="Total de usuários"
+                    value={stats?.totalUsers}
+                    icon={<HiMiniUsers />}
+                    iconColor="#6E00FF"
+                />
+                <StatsCard
+                    title="Total de postagens"
+                    value={stats?.totalPosts}
+                    icon={<HiMiniBookOpen />}
+                    iconColor="#FFBC00"
+                />
+                <StatsCard
+                    title="Total de comentários"
+                    value={stats?.totalComments}
+                    icon={<HiChatBubbleBottomCenterText />}
+                    iconColor="#FF7A49"
+                />
+            </Box>
 
-                <Grid item md={4}>
-                    <StatsCard
-                        title="Total de postagens"
-                        value={stats?.totalPosts}
-                        icon={<HiMiniBookOpen />}
-                        iconColor="#FFBC00"
-                    />
-                </Grid>
-
-                <Grid item md={4}>
-                    <StatsCard
-                        title="Total de comentários"
-                        value={stats?.totalComments}
-                        icon={<HiChatBubbleBottomCenterText />}
-                        iconColor="#FF7A49"
-                    />
-                </Grid>
-            </Grid >
-
-            <Grid container spacing={2} >
-                <Grid item md={8}>
+            <Box
+                display="grid"
+                gridTemplateColumns={{ xs: "1fr", md: "2fr 1fr" }}
+                gap={2}
+                px={2}
+            >
+                <Box sx={{ bgcolor: "#FFF", borderRadius: 4, p: 3 }}>
                     <BarChart />
-                </Grid>
-
-                <Grid item md={4}>
+                </Box>
+                <Box sx={{ bgcolor: "#FFF", borderRadius: 4, p: 3 }}>
                     <PieChart />
-                </Grid>
-            </Grid>
+                </Box>
+            </Box>
 
-            <UsersTable />
+            <Box
+                display='grid'
+                gap={2}
+                py={4}
+                px={2}
+            >
+                <UsersTable />
+            </Box>
         </Container>
-    )
-}
+    );
+};

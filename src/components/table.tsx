@@ -5,7 +5,7 @@ const UsersTable = () => {
     const { countComments, countPosts, filteredUsers, handleChangePage, handleChangeRowsPerPage, page, rowsPerPage, setSearchTerm } = useUsers();
 
     return (
-        <Paper>
+        <Paper sx={{ bgcolor: "#FFF", borderRadius: 4, p: 3 }} elevation={0}>
             <TableContainer>
                 <Box display="flex" justifyContent="flex-start" px={2}>
                     <TextField
