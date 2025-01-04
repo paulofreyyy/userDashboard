@@ -6,21 +6,10 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import { fetchPostsByUser } from "./services/postService";
+import { Post, UserPostCount } from "./types";
 
 // Registrar os componentes necessários do Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-interface Post {
-    userId: number;
-    id: number;
-    title: string;
-    body: string;
-}
-
-interface UserPostCount {
-    userId: number;
-    postCount: number;
-}
 
 export function App() {
     const { stats, loading, error } = useStats();
@@ -99,7 +88,7 @@ export function App() {
     return (
         <Container>
 
-            <Grid container spacing={20} py={4} px={8}>
+            <Grid container spacing={5} py={4} px={8}>
                 <Grid item md={4}>
                     <StatsCard
                         title="Total de usuários"

@@ -1,6 +1,7 @@
+import { Stats } from '../types';
 import api from './api';
 
-export const fetchStats = async () => {
+export const fetchStats = async (): Promise<Stats> => {
     try {
         const [usersResponse, postsResponse, commentsResponse] = await Promise.all([
             api.get('/users'),

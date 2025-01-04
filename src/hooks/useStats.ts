@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchStats } from "../services/statsServices";
-
-interface Stats {
-    totalUsers: number;
-    totalPosts: number;
-    totalComments: number;
-}
+import { Stats } from "../types";
 
 export const useStats = () => {
     const [stats, setStats] = useState<Stats | null>(null);
