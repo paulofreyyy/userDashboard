@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, TextField, Paper } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, TextField, Paper, Box } from '@mui/material';
 import { useUsers } from '../hooks/useUsers';
 
 const UsersTable = () => {
@@ -6,17 +6,18 @@ const UsersTable = () => {
 
     return (
         <Paper>
-            <TextField
-                label="Buscar por Nome"
-                variant="outlined"
-                onChange={(e) => setSearchTerm(e.target.value)}
-                fullWidth
-                margin="normal"
-            />
-
             <TableContainer>
+                <Box display="flex" justifyContent="flex-start" px={2}>
+                    <TextField
+                        label="Buscar por Usuário"
+                        variant="outlined"
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        margin="normal"
+                    />
+                </Box>
                 <Table>
                     <TableHead>
+
                         <TableRow>
                             <TableCell>Nome</TableCell>
                             <TableCell>Email</TableCell>
