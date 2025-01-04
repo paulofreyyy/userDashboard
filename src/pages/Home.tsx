@@ -4,6 +4,7 @@ import { useStats } from "../hooks/useStats";
 import { StatsCard } from "../components/statsCards";
 import { BarChart } from "../components/charts/bar";
 import { PieChart } from "../components/charts/pie";
+import UsersTable from "../components/table";
 
 export const Home = () => {
     const { stats, loading, error } = useStats();
@@ -74,6 +75,8 @@ export const Home = () => {
                     <PieChart />
                 </Grid>
             </Grid>
+
+            <UsersTable />
         </Container>
     )
 }
