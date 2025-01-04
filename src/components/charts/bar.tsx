@@ -8,6 +8,8 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 export const BarChart = () => {
     const { postCounts } = usePost();
 
+    // Cores alternativas para as barras
+
     // Preparar os dados para o gráfico
     const data = {
         labels: postCounts.map(item => `User ${item.userId}`),  // Rótulos com base no userId
@@ -15,8 +17,8 @@ export const BarChart = () => {
             {
                 label: 'Postagens por Usuário',
                 data: postCounts.map(item => item.postCount),
-                backgroundColor: 'rgba(75, 192, 192, 0.2)', // Cor das barras
-                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: '#6E00FF', // Cor das barras
+                borderColor: '#6E00FF',
                 borderWidth: 1,
             },
         ],

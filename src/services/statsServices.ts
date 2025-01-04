@@ -9,19 +9,14 @@ export const fetchStats = async (): Promise<Stats> => {
             api.get('/comments'),
         ]);
 
-        const users = usersResponse.data;
-        const posts = postsResponse.data;
-        const comments = commentsResponse.data;
-
-        // Total counts
-        const totalUsers = users.length;
-        const totalPosts = posts.length;
-        const totalComments = comments.length;
+        localStorage.setItem('users', JSON.stringify(usersResponse.data));
+        localStorage.setItem('posts', JSON.stringify(postsResponse.data));
+        localStorage.setItem('comments', JSON.stringify(commentsResponse.data));
 
         return {
-            totalUsers,
-            totalComments,
-            totalPosts,
+            totalUsers: usersResponse.data.length,
+            totalComments: commentsResponse.data.length,
+            totalPosts: postsResponse.data.length,
         };
     } catch (error) {
         console.error('Error fetching stats:', error);

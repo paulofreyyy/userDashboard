@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Post, UserPostCount } from "../types";
-import { fetchPostsByUser } from "../services/postService";
 
 export const usePost = () => {
     const [postCounts, setPostCounts] = useState<UserPostCount[]>([]);
@@ -9,7 +8,7 @@ export const usePost = () => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const posts: Post[] = await fetchPostsByUser();
+                const posts: Post[] = JSON.parse(localStorage.getItem('posts') || '[]');
 
                 // Contabilizar o número de postagens por usuário
                 const counts = posts.reduce((acc: Record<number, number>, post: Post) => {
