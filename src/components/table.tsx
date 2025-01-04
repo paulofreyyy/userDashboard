@@ -1,28 +1,29 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, TextField, Paper, Box } from '@mui/material';
-import { useUsers } from '../hooks/useUsers';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper, Box, Typography, TextField } from '@mui/material';
+import { useTable } from '../hooks/useTable';
 
 const UsersTable = () => {
-    const { countComments, countPosts, filteredUsers, handleChangePage, handleChangeRowsPerPage, page, rowsPerPage, setSearchTerm } = useUsers();
+    const { countComments, countPosts, filteredUsers, handleChangePage, handleChangeRowsPerPage, page, rowsPerPage, setSearchTerm } = useTable();
 
     return (
         <Paper sx={{ bgcolor: "#FFF", borderRadius: 4, p: 3 }} elevation={0}>
             <TableContainer>
-                <Box display="flex" justifyContent="flex-start" px={2}>
+                <Box display="flex" justifyContent="space-between" p={2} alignItems='center'>
+                    <Typography variant='h6' fontWeight={600}>Usuários</Typography>
+
                     <TextField
-                        label="Buscar por Usuário"
-                        variant="outlined"
+                        label="Buscar por Nome"
+                        variant='standard'
                         onChange={(e) => setSearchTerm(e.target.value)}
-                        margin="normal"
                     />
                 </Box>
+
                 <Table>
                     <TableHead>
-
                         <TableRow>
-                            <TableCell>Nome</TableCell>
-                            <TableCell>Email</TableCell>
-                            <TableCell>Postagens</TableCell>
-                            <TableCell>Comentários</TableCell>
+                            <TableCell sx={{ fontWeight: 600 }}>Nome</TableCell>
+                            <TableCell sx={{ fontWeight: 600 }}>Email</TableCell>
+                            <TableCell sx={{ fontWeight: 600 }}>Postagens</TableCell>
+                            <TableCell sx={{ fontWeight: 600 }}>Comentários</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

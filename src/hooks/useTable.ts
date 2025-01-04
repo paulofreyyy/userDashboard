@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Comment, Post, User } from "../types";
 
-export const useUsers = () => {
+export const useTable = () => {
     const [users, setUsers] = useState<User[]>([]);
     const [posts, setPosts] = useState<Post[]>([]);
     const [comments, setComments] = useState<Comment[]>([]);
