@@ -4,16 +4,17 @@ interface Props {
     title: string;
     value: number | undefined;
     icon: JSX.Element;
+    iconColor: string;
 }
 
-export const StatsCard = ({ title, value, icon }: Props) => {
+export const StatsCard = ({ title, value, icon, iconColor }: Props) => {
     return (
         <Card
             sx={{
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-around",
-                padding: 2,
+                justifyContent: "space-between",
+                p: 4,
             }}
         >
             <CardContent>
@@ -21,7 +22,7 @@ export const StatsCard = ({ title, value, icon }: Props) => {
                 <Typography fontWeight='bold' fontSize='1.5rem'>{value}</Typography>
             </CardContent>
 
-            <Box sx={{ fontSize: 40 }}>
+            <Box sx={{ fontSize: 45, color: iconColor }}>
                 {icon}
             </Box>
         </Card>

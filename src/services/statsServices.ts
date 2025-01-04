@@ -1,20 +1,18 @@
-import axios from 'axios';
-
-const BASE_URL = 'https://jsonplaceholder.typicode.com';
+import api from './api';
 
 export const fetchStats = async () => {
     try {
         const [usersResponse, postsResponse, commentsResponse] = await Promise.all([
-            axios.get(`${BASE_URL}/users`),
-            axios.get(`${BASE_URL}/posts`),
-            axios.get(`${BASE_URL}/comments`)
+            api.get('/users'),
+            api.get('/posts'),
+            api.get('/comments'),
         ]);
 
         const users = usersResponse.data;
         const posts = postsResponse.data;
         const comments = commentsResponse.data;
 
-        //Total counts
+        // Total counts
         const totalUsers = users.length;
         const totalPosts = posts.length;
         const totalComments = comments.length;
@@ -23,9 +21,9 @@ export const fetchStats = async () => {
             totalUsers,
             totalComments,
             totalPosts,
-        }
-
+        };
     } catch (error) {
-
+        console.error('Error fetching stats:', error);
+        throw new Error('Unable to fetch stats');
     }
-}
+};
