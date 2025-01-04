@@ -1,8 +1,9 @@
-import { Alert, Box, Container, Grid, Skeleton } from "@mui/material";
+import { Alert, Container, Grid, Skeleton } from "@mui/material";
 import { HiChatBubbleBottomCenterText, HiMiniBookOpen, HiMiniUsers } from "react-icons/hi2";
 import { useStats } from "../hooks/useStats";
 import { StatsCard } from "../components/statsCards";
 import { BarChart } from "../components/charts/bar";
+import { PieChart } from "../components/charts/pie";
 
 export const Home = () => {
     const { stats, loading, error } = useStats();
@@ -64,9 +65,15 @@ export const Home = () => {
                 </Grid>
             </Grid >
 
-            <Box>
-                <BarChart />
-            </Box>
+            <Grid container spacing={2} >
+                <Grid item md={8}>
+                    <BarChart />
+                </Grid>
+
+                <Grid item md={4}>
+                    <PieChart />
+                </Grid>
+            </Grid>
         </Container>
     )
 }
