@@ -7,6 +7,7 @@ interface Props {
     iconColor: string;
 }
 
+
 export const StatsCard = ({ title, value, icon, iconColor }: Props) => {
     return (
         <Card
@@ -21,10 +22,10 @@ export const StatsCard = ({ title, value, icon, iconColor }: Props) => {
         >
             <CardContent>
                 <Typography color="#9996BC">{title}</Typography>
-                <Typography fontWeight='bold' fontSize='2rem'>{value}</Typography>
+                <Typography fontWeight='bold' fontSize={{ md: '2rem', sm: '1.5rem' }}>{value}</Typography>
             </CardContent>
 
-            <Box sx={{ color: iconColor }} fontSize={{ md: 55, sm: 40 }}>
+            <Box sx={{ color: iconColor }}>
                 {icon}
             </Box>
         </Card>
