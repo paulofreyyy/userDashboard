@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper, Box, Typography, TextField, InputAdornment, styled } from '@mui/material';
-import { useTable } from '../hooks/useTable';
+import { useTable } from '../../hooks/useTable';
 import { HiMagnifyingGlass } from 'react-icons/hi2';
 
 const UsersTable = () => {

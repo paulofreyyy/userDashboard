@@ -1,10 +1,10 @@
 import { Alert, Container, Skeleton, Box } from "@mui/material";
 import { HiChatBubbleBottomCenterText, HiMiniBookOpen, HiMiniUsers } from "react-icons/hi2";
 import { useStats } from "../hooks/useStats";
-import { StatsCard } from "../components/statsCards";
+import { StatsCard } from "../components/cards/statsCards";
 import { BarChart } from "../components/charts/bar";
 import { PieChart } from "../components/charts/pie";
-import UsersTable from "../components/table";
+import UsersTable from "../components/tables/table";
 
 export const Home = () => {
     const { stats, loading, error } = useStats();
