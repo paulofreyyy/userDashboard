@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Box,
     Drawer,
@@ -8,10 +8,12 @@ import {
     useTheme,
     useMediaQuery,
     ListItemIcon,
+    IconButton,
 } from '@mui/material';
 import { HiBookmark, HiChartBar, HiMiniUsers } from 'react-icons/hi2';
 import { Link, useLocation } from 'react-router-dom';
-import Logo from '../../assets/logo.png'; // Importando a imagem da logo
+import Logo from '../../assets/logo.png';
+import { HiMenuAlt2 } from 'react-icons/hi';
 
 interface Props {
     children: React.ReactNode;
@@ -22,6 +24,12 @@ export const Layout = ({ children }: Props) => {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const location = useLocation();
 
+    const [isMenuCollapsed, setIsMenuCollapsed] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuCollapsed((prev) => !prev);
+    };
+
     const menuItems = [
         { text: 'Dashboard', icon: <HiChartBar size="1.5rem" />, path: '/' },
         { text: 'Usuários', icon: <HiMiniUsers size="1.5rem" />, path: '/usuarios' },
@@ -30,32 +38,64 @@ export const Layout = ({ children }: Props) => {
 
     return (
         <Box sx={{ display: 'flex' }}>
+            {/* Botão para expandir/recolher o menu (aparece apenas em telas não móveis) */}
+            {!isMobile && (
+                <IconButton
+                    onClick={toggleMenu}
+                    sx={{
+                        position: 'fixed',
+                        top: 20,
+                        left: isMenuCollapsed ? 80 : 250,
+                        zIndex: theme.zIndex.drawer + 1,
+                        transition: 'left 0.3s',
+                    }}
+                >
+                    <HiMenuAlt2 />
+                </IconButton>
+            )}
+
             {/* Menu Lateral */}
             <Drawer
                 variant={isMobile ? 'temporary' : 'permanent'}
                 open={isMobile ? false : true}
                 sx={{
-                    width: 240,
+                    width: isMenuCollapsed ? 72 : 240,
                     flexShrink: 0,
                     '& .MuiDrawer-paper': {
-                        width: 240,
+                        width: isMenuCollapsed ? 72 : 240,
                         boxSizing: 'border-box',
+                        overflowX: 'hidden',
+                        transition: 'width 0.3s',
                     },
                 }}
             >
                 {/* Logo no topo do Drawer */}
-                <Box sx={{ p: 4, display: 'flex', justifyContent: 'center' }}>
-                    <img src={Logo} alt="Logo" style={{ width: '100%', maxWidth: '150px' }} />
+                <Box
+                    sx={{
+                        p: 4,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        flexDirection: isMenuCollapsed ? 'column' : 'row',
+                    }}
+                >
+                    {!isMenuCollapsed && (
+                        <img
+                            src={Logo}
+                            alt="Logo"
+                            style={{ width: '100%', maxWidth: '150px' }}
+                        />
+                    )}
                 </Box>
 
-                <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <List>
                     {menuItems.map((item) => (
                         <ListItem
                             component={Link}
                             to={item.path}
                             key={item.text}
                             sx={{
-                                px: 4,
+                                px: isMenuCollapsed ? 3 : 4,
                                 color: location.pathname === item.path ? '#6E00FF' : '#8e8e8e',
                                 borderRight: location.pathname === item.path ? '4px solid #6E00FF' : 'none',
                                 overflow: 'hidden',
@@ -88,11 +128,12 @@ export const Layout = ({ children }: Props) => {
                             <ListItemIcon
                                 sx={{
                                     color: location.pathname === item.path ? '#6E00FF' : '#7e7e7f',
+                                    minWidth: isMenuCollapsed ? 48 : 56,
                                 }}
                             >
                                 {item.icon}
                             </ListItemIcon>
-                            <ListItemText primary={item.text} />
+                            {!isMenuCollapsed && <ListItemText primary={item.text} />}
                         </ListItem>
                     ))}
                 </List>
@@ -101,9 +142,12 @@ export const Layout = ({ children }: Props) => {
             {/* Área principal */}
             <Box
                 component="main"
-                sx={{ flexGrow: 1, p: 3 }}
+                sx={{
+                    flexGrow: 1,
+                    p: 3,
+                    transition: 'margin-left 0.3s',
+                }}
             >
-                {/* Conteúdo */}
                 <Box>{children}</Box>
             </Box>
         </Box>
