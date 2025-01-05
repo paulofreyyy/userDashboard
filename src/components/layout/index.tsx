@@ -1,15 +1,32 @@
 import React from 'react';
-import { Box, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, ListItemIcon } from '@mui/material';
+import {
+    Box,
+    Drawer,
+    List,
+    ListItem,
+    ListItemText,
+    useTheme,
+    useMediaQuery,
+    ListItemIcon,
+} from '@mui/material';
 import { HiBookmark, HiChartBar, HiMiniUsers } from 'react-icons/hi2';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../assets/logo.png'; // Importando a imagem da logo
 
-interface LayoutProps {
+interface Props {
     children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const Layout = ({ children }: Props) => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const location = useLocation();
+
+    const menuItems = [
+        { text: 'Dashboard', icon: <HiChartBar size="1.5rem" />, path: '/' },
+        { text: 'Usuários', icon: <HiMiniUsers size="1.5rem" />, path: '/usuarios' },
+        { text: 'Postagens', icon: <HiBookmark size="1.5rem" />, path: '/postagens' },
+    ];
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -32,27 +49,52 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </Box>
 
                 <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <ListItem sx={{ px: 4, py: 1.5 }}>
-                        <ListItemIcon>
-                            <HiChartBar size='1.5rem' />
-                        </ListItemIcon>
-
-                        <ListItemText primary="Dashboard" />
-                    </ListItem>
-                    <ListItem sx={{ px: 4, py: 1.5 }}>
-                        <ListItemIcon>
-                            <HiMiniUsers size='1.5rem' />
-                        </ListItemIcon>
-
-                        <ListItemText primary="Usuários" />
-                    </ListItem>
-                    <ListItem sx={{ px: 4, py: 1.5 }}>
-                        <ListItemIcon>
-                            <HiBookmark size='1.5rem' />
-                        </ListItemIcon>
-
-                        <ListItemText primary="Postagens" />
-                    </ListItem>
+                    {menuItems.map((item) => (
+                        <ListItem
+                            component={Link}
+                            to={item.path}
+                            key={item.text}
+                            sx={{
+                                px: 4,
+                                color: location.pathname === item.path ? '#6E00FF' : '#8e8e8e',
+                                borderRight: location.pathname === item.path ? '4px solid #6E00FF' : 'none',
+                                overflow: 'hidden',
+                                '&:hover': {
+                                    color: '#fff',
+                                    '& .MuiListItemIcon-root': {
+                                        color: '#FFF'
+                                    }
+                                },
+                                '&::before': {
+                                    content: '""',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    left: '100%',
+                                    backgroundColor: '#6E00FF',
+                                    transition: 'left 0.4s ease',
+                                    zIndex: 0,
+                                },
+                                '&:hover::before': {
+                                    left: 0,
+                                },
+                                '& > *': {
+                                    position: 'relative',
+                                    zIndex: 1,
+                                },
+                            }}
+                        >
+                            <ListItemIcon
+                                sx={{
+                                    color: location.pathname === item.path ? '#6E00FF' : '#7e7e7f',
+                                }}
+                            >
+                                {item.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={item.text} />
+                        </ListItem>
+                    ))}
                 </List>
             </Drawer>
 
@@ -62,12 +104,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 sx={{ flexGrow: 1, p: 3 }}
             >
                 {/* Conteúdo */}
-                <Box>
-                    {children}
-                </Box>
+                <Box>{children}</Box>
             </Box>
         </Box>
     );
 };
-
-export default Layout;
