@@ -1,4 +1,4 @@
-import { Alert, Container, Skeleton, Box } from "@mui/material";
+import { Alert, Container, Skeleton, Box, Typography } from "@mui/material";
 import { HiChatBubbleBottomCenterText, HiMiniBookOpen, HiMiniUsers } from "react-icons/hi2";
 import { useStats } from "../hooks/useStats";
 import { StatsCard } from "../components/cards/statsCards";
@@ -29,6 +29,7 @@ export const Home = () => {
 
     return (
         <Container>
+            <Typography variant="h5" fontWeight={600} px={2}>Dashboard</Typography>
             <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={5} py={4} px={2}>
                 <StatsCard
                     title="Total de usuários"

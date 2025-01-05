@@ -1,5 +1,7 @@
 import React from 'react';
-import { Box, Drawer, AppBar, Toolbar, List, ListItem, ListItemText, CssBaseline, useTheme, useMediaQuery } from '@mui/material';
+import { Box, Drawer, List, ListItem, ListItemText, useTheme, useMediaQuery, ListItemIcon } from '@mui/material';
+import { HiBookmark, HiChartBar, HiMiniUsers } from 'react-icons/hi2';
+import Logo from '../../assets/logo.png'; // Importando a imagem da logo
 
 interface LayoutProps {
     children: React.ReactNode;
@@ -11,8 +13,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-
             {/* Menu Lateral */}
             <Drawer
                 variant={isMobile ? 'temporary' : 'permanent'}
@@ -26,15 +26,32 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     },
                 }}
             >
-                <List>
-                    <ListItem>
-                        <ListItemText primary="Menu Item 1" />
+                {/* Logo no topo do Drawer */}
+                <Box sx={{ p: 4, display: 'flex', justifyContent: 'center' }}>
+                    <img src={Logo} alt="Logo" style={{ width: '100%', maxWidth: '150px' }} />
+                </Box>
+
+                <List sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <ListItem sx={{ px: 4, py: 1.5 }}>
+                        <ListItemIcon>
+                            <HiChartBar size='1.5rem' />
+                        </ListItemIcon>
+
+                        <ListItemText primary="Dashboard" />
                     </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Menu Item 2" />
+                    <ListItem sx={{ px: 4, py: 1.5 }}>
+                        <ListItemIcon>
+                            <HiMiniUsers size='1.5rem' />
+                        </ListItemIcon>
+
+                        <ListItemText primary="Usuários" />
                     </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Menu Item 3" />
+                    <ListItem sx={{ px: 4, py: 1.5 }}>
+                        <ListItemIcon>
+                            <HiBookmark size='1.5rem' />
+                        </ListItemIcon>
+
+                        <ListItemText primary="Postagens" />
                     </ListItem>
                 </List>
             </Drawer>
@@ -44,15 +61,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 component="main"
                 sx={{ flexGrow: 1, p: 3 }}
             >
-                {/* Barra de Ferramentas */}
-                <AppBar position="sticky" sx={{ bgcolor: '#FFF' }} elevation={0}>
-                    <Toolbar>
-                        <h6>Toolbar</h6>
-                    </Toolbar>
-                </AppBar>
-
                 {/* Conteúdo */}
-                <Box sx={{ mt: 2 }}>
+                <Box>
                     {children}
                 </Box>
             </Box>
