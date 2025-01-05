@@ -24,7 +24,7 @@ export const StatsCard = ({ title, value, icon, iconColor }: Props) => {
                 <Typography fontWeight='bold' fontSize='2rem'>{value}</Typography>
             </CardContent>
 
-            <Box sx={{ fontSize: 55, color: iconColor }}>
+            <Box sx={{ color: iconColor }} fontSize={{ md: 55, sm: 40 }}>
                 {icon}
             </Box>
         </Card>
