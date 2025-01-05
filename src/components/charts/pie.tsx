@@ -45,6 +45,9 @@ export const PieChart = () => {
                 title: {
                     display: true,
                     text: 'Porcentagem de Usuários por Empresa',
+                    font: {
+                        size: 16
+                    }
                 }
             },
             animation: {
