@@ -1,8 +1,20 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper, Box, Typography, TextField } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination, Paper, Box, Typography, TextField, InputAdornment, styled } from '@mui/material';
 import { useTable } from '../hooks/useTable';
+import { HiMagnifyingGlass } from 'react-icons/hi2';
 
 const UsersTable = () => {
     const { countComments, countPosts, filteredUsers, handleChangePage, handleChangeRowsPerPage, page, rowsPerPage, setSearchTerm } = useTable();
+
+    // Aplicando estilo nas linhas da tabela
+    const StyledTableRow = styled(TableRow)(({ theme }) => ({
+        '&:nth-of-type(odd)': {
+            backgroundColor: theme.palette.action.hover,
+        },
+        // hide last border
+        '&:last-child td, &:last-child th': {
+            border: 0,
+        },
+    }));
 
     return (
         <Paper sx={{ bgcolor: "#FFF", borderRadius: 4, p: 3 }} elevation={0}>
@@ -14,6 +26,15 @@ const UsersTable = () => {
                         label="Buscar por Nome"
                         variant='standard'
                         onChange={(e) => setSearchTerm(e.target.value)}
+                        slotProps={{
+                            input: {
+                                startAdornment: (
+                                    <InputAdornment position="start">
+                                        <HiMagnifyingGlass />
+                                    </InputAdornment>
+                                ),
+                            }
+                        }}
                     />
                 </Box>
 
@@ -30,12 +51,12 @@ const UsersTable = () => {
                         {filteredUsers
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((user) => (
-                                <TableRow key={user.id}>
+                                <StyledTableRow key={user.id}>
                                     <TableCell>{user.name}</TableCell>
                                     <TableCell>{user.email}</TableCell>
                                     <TableCell>{countPosts(user.id)}</TableCell>
                                     <TableCell>{countComments(user.id)}</TableCell>
-                                </TableRow>
+                                </StyledTableRow>
                             ))}
                     </TableBody>
                 </Table>
