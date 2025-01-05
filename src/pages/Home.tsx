@@ -1,4 +1,4 @@
-import { Alert, Container, Skeleton, Box, Typography, useMediaQuery } from "@mui/material";
+import { Container, Box, Typography, useMediaQuery } from "@mui/material";
 import { HiBookmark, HiChatBubbleBottomCenterText, HiMiniUsers } from "react-icons/hi2";
 import { useStats } from "../hooks/useStats";
 import { StatsCard } from "../components/cards/statsCards";
@@ -8,26 +8,8 @@ import UsersTable from "../components/tables/table";
 import theme from "../theme/theme";
 
 export const Home = () => {
-    const { stats, loading, error } = useStats();
+    const { stats } = useStats();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-    if (loading) {
-        return (
-            <Box display="grid" gridTemplateColumns="repeat(auto-fit, minmax(300px, 1fr))" gap={3} py={4} px={2}>
-                {[...Array(3)].map((_, index) => (
-                    <Skeleton key={index} variant="rectangular" width="100%" height={150} />
-                ))}
-            </Box>
-        );
-    }
-
-    if (error) {
-        return (
-            <Box py={4} px={2}>
-                <Alert severity="error">Erro: {error}</Alert>
-            </Box>
-        );
-    }
 
     return (
         <Container>
